@@ -74,13 +74,15 @@ Running the Tool
 The program requires 3 arguments: Input File, Output File, and Mode.
 
 To Compress a file (Mode 0):
-
+```
 ./huffman input.txt compressed.huff 0
+```
 
 
 To Decompress a file (Mode 1):
-
+```
 ./huffman compressed.huff restored.txt 1
+```
 
 
 📚 Resources & Citations
