@@ -1,8 +1,8 @@
-C-Huffman-CLI: Lossless File Compression & Decompression
+# C-Huffman-CLI: Lossless File Compression & Decompression
 
 A lightweight, high-performance command-line tool written in raw C that implements Huffman Coding for lossless file compression. It supports encoding and decoding of UTF-8 text files (and arbitrary binary data) by reducing redundancy at the bit level.
 
-🚀 What This Does
+ ## 🚀 What This Does
 
 This program takes a file and "squeezes" it into a smaller size without losing a single bit of data. It operates in two distinct modes:
 
@@ -12,27 +12,27 @@ Decompress: Reads the compressed binary file, reconstructs the Huffman Tree from
 
 It features a dynamic header optimization (internally nicknamed the "BigGirl" flag) which intelligently switches between 32-bit and 64-bit frequency counters. This saves space on smaller files while preventing integer overflow on massive files (>4GB).
 
-🎓 Why This Project? (The Learning Journey)
+## 🎓 Why This Project? (The Learning Journey)
 
 This project was built as a deep-dive learning experience into low-level systems programming. Implementing Huffman Coding from scratch is arguably one of the best ways to master C because it forces you to touch almost every critical concept in the language simultaneously:
 
-Memory Management: Heavy use of malloc, free, and avoiding memory leaks while managing dynamic arrays and recursive tree structures.
+- Memory Management: Heavy use of malloc, free, and avoiding memory leaks while managing dynamic arrays and recursive tree structures.
 
-Data Structures: Building Min-Heaps (Priority Queues) and Binary Trees manually without external libraries.
+- Data Structures: Building Min-Heaps (Priority Queues) and Binary Trees manually without external libraries.
 
-Bitwise Operations: Writing logic to shift bits (<<, >>) and mask bytes (&) to pack 8 boolean codes into a single byte of physical memory.
+- Bitwise Operations: Writing logic to shift bits (<<, >>) and mask bytes (&) to pack 8 boolean codes into a single byte of physical memory.
 
-File I/O: Precise control over binary reading/writing (fread, fwrite, fseek) and handling file cursors.
+- File I/O: Precise control over binary reading/writing (fread, fwrite, fseek) and handling file cursors.
 
-Pointer Arithmetic: Managing complex data types and void pointers for optimization.
+- Pointer Arithmetic: Managing complex data types and void pointers for optimization.
 
 If you can build this, you understand how computers handle data at the fundamental level.
 
-⚙️ How It Works (Program Flow)
+## ⚙️ How It Works (Program Flow)
 
 The program is structured into a single monolithic C file for portability, using distinct phases for encoding and decoding.
 
-Compression Flow
+### Compression Flow
 
 Frequency Analysis: Scans the entire file to count how many times every byte (0-255) appears.
 
@@ -46,7 +46,7 @@ Optimization: Checks file size. If <4GB, writes 4-byte integers to save space. I
 
 Bit Packing: Re-reads the input file, translates characters into binary codes (e.g., 'A' -> 110), buffers them, and writes packed bytes to the output.
 
-Decompression Flow
+### Decompression Flow
 
 Header Parsing: Reads the first byte (Flag) to determine if the file uses 32-bit or 64-bit counters.
 
@@ -60,32 +60,33 @@ Reads a 1 -> Move Right in Tree.
 
 Hits a Leaf -> Writes the character to disk and resets to the root.
 
-🛠️ Usage
+## 🛠️ Usage
 
-Compilation
+## Compilation
 
 You need a C compiler (like GCC or Clang).
-
+```
 gcc main.c -o huffman
+```
 
 
-Running the Tool
+## Running the Tool
 
 The program requires 3 arguments: Input File, Output File, and Mode.
 
-To Compress a file (Mode 0):
+### To Compress a file (Mode 0):
 ```
 ./huffman input.txt compressed.huff 1
 ```
 
 
-To Decompress a file (Mode 1):
+### To Decompress a file (Mode 1):
 ```
 ./huffman compressed.huff restored.txt 0
 ```
 
 
-📚 Resources & Citations
+## 📚 Resources & Citations
 
 This project wouldn't be possible without the detailed explanations found in:
 
